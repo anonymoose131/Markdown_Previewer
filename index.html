@@ -1,0 +1,88 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+       
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        
+        <title>Markdown Previewer</title>
+
+        <!-- Marked Library -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.1/marked.min.js" integrity="sha512-pSeTnZAQF/RHxb0ysMoYQI/BRZsa5XuklcrgFfU3YZIdnD3LvkkqzrIeHxzFi6gKtI8Cpq2DEWdZjMTcNVhUYA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script>
+            function updatePreview() {
+                let previewElement = document.getElementById('preview');
+                let editorValue = document.getElementById('editor').value;
+                let markedUpHTML = marked.parse(editorValue);
+                previewElement.innerHTML = markedUpHTML;
+            }
+
+            function setDefault() {
+                let defaultPreview = `
+# h1 Heading
+
+## h2 Heading
+
+[Check out my GitHub](https://github.com/anonymoose131)
+
+<dl>
+    <dt>Definition list</dt>
+    <dd>Is something people use sometimes.</dd>
+
+    <dt>Markdown in HTML</dt>
+    <dd>Does *not* work **very** well. Use HTML <em>tags</em>.</dd>
+</dl>
+
+\`Inline Code\`
+
+\`\`\`
+function multiLineCodeBlock() {
+    return exampleOfMultiLineCodeBlock;
+}
+\`\`\`
+
+- List Item 1
+- List Item 2
+- List Item 3
+
+> Block Quotes!
+
+![Markdown Image](https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Markdown-mark.svg/350px-Markdown-mark.svg.png)
+
+**Bold Text**`;
+
+                marked.setOptions({
+                    breaks: true
+                })
+
+
+                let editorElement = document.getElementById('editor');
+                let previewElement = document.getElementById('preview');
+                editorElement.value = defaultPreview;
+                previewElement.innerHTML = marked.parse(defaultPreview);
+            }
+        </script>
+    </head>
+    <body class="bg-dark" onload="setDefault()">
+        <div class="container-fluid border border-3 border-secondary border-rounded-2">
+            <div class="row">
+                <div class="col text-center text-white bg-dark p-2">
+                    <h1>Markdown Previewer by Paul Ortiz</h1>
+                </div>
+            </div>
+            <div class="row ">
+                <div class="col-6 bg-danger mx-auto p-3 border-top border-end border-3 border-secondary d-flex flex-column">
+                    <p class="fs-4 fw-medium text-center">Editor:</p>
+                    <textarea id="editor" title="editor" class="border border-3 border-secondary form-control flex-grow-1" placeholder="# Enter your markdown here" onkeyup="updatePreview()"></textarea>
+                </div>
+                <div class="col-6 bg-warning mx-auto p-3 border-top border-3 border-secondary">
+                    <p class="fs-4 fw-medium text-center">Previewer:</p>
+                    <div id="preview"></div>
+                </div>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
+    </body>
+</html>
